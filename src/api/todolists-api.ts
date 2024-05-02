@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { UpdateDomainTaskModelType } from 'features/TodolistsList/tasks-reducer'
 
 const settings = {
   withCredentials: true,
@@ -49,6 +50,17 @@ export const todolistsAPI = {
 
 export type AddTaskArgs = {
   title: string
+  todolistId: string
+}
+
+export type RemoveTaskArgs = {
+  taskId: string
+  todolistId: string
+}
+
+export type UpdateTaskArgType = {
+  taskId: string
+  domainModel: UpdateDomainTaskModelType
   todolistId: string
 }
 
