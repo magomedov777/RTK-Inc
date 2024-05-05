@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dispatch } from 'redux'
-import { authAPI } from '../api/todolists-api'
 import { authActions } from 'features/Login/auth-reducer'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { AppThunk } from './store'
+import { authAPI } from 'api/auth-api'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
