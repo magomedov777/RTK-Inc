@@ -3,21 +3,18 @@ import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../app/store'
 import {
-  addTodolistTC,
-  changeTodolistTitleTC,
   fetchTodolistsTC,
   FilterValuesType,
-  removeTodolistTC,
   TodolistDomainType,
-  todolistsActions,
+  todolistThunks,
 } from './todolists-reducer'
 import { TasksStateType, tasksThunks } from './tasks-reducer'
-import { TaskStatuses } from '../../api/todolists-api'
 import { Grid, Paper } from '@mui/material'
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { TaskStatuses } from 'utils/enums'
 
 type PropsType = {
   demo?: boolean
@@ -36,6 +33,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
     if (demo || !isLoggedIn) {
       return
     }
+
     const thunk = fetchTodolistsTC()
     dispatch(thunk)
   }, [])
@@ -62,22 +60,20 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   }, [])
 
   const changeFilter = useCallback(function (filter: FilterValuesType, id: string) {
-    dispatch(todolistsActions.changeTodolistFilter({ id, filter }))
+    dispatch(todolistThunks.changeTodolistFilter({ id, filter }))
   }, [])
 
-  const removeTodolist = useCallback(function (id: string) {
-    const thunk = removeTodolistTC(id)
-    dispatch(thunk)
+  const removeTodolist = useCallback(function (todolistId: string) {
+    dispatch(todolistThunks.removeTodolist({ todolistId }))
   }, [])
 
   const changeTodolistTitle = useCallback(function (id: string, title: string) {
-    dispatch(changeTodolistTitleTC(id, title))
+    dispatch(todolistThunks.changeTodolistTitle({ id, title }))
   }, [])
 
   const addTodolist = useCallback(
     (title: string) => {
-      const thunk = addTodolistTC(title)
-      dispatch(thunk)
+      dispatch(todolistThunks.addTodolist({ title }))
     },
     [dispatch]
   )

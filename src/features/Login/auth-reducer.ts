@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dispatch } from 'redux'
-
-import { authAPI, LoginParamsType } from '../../api/todolists-api'
-import { handleServerAppError, handleServerNetworkError } from '../../utils/error-utils'
-import { createSlice, PayloadAction, ThunkDispatch } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from 'app/store'
 import { appActions } from 'app/app-reducer'
+import { handleServerAppError, handleServerNetworkError } from 'utils'
+import { authAPI } from 'api/auth-api'
+import { LoginParamsType } from 'api/types'
 
 const slice = createSlice({
   name: 'auth',
